@@ -1,0 +1,120 @@
+:root {
+    --neon-pink: #ff007f;
+    --dark-bg: #0a0a0a;
+    --code-bg: #011627;
+}
+
+body {
+    margin: 0;
+    background-color: var(--dark-bg);
+    color: white;
+    font-family: 'Courier New', Courier, monospace;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    overflow: hidden;
+}
+
+/* Fondo con luces de neón */
+.background-decor {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    background-image: radial-gradient(circle, #ff007f33 1px, transparent 1px);
+    background-size: 30px 30px;
+    z-index: -1;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    width: 100%;
+}
+
+/* Tarjeta Principal */
+.card {
+    background: #fff5f7;
+    width: 350px;
+    height: 450px;
+    border-radius: 15px;
+    padding: 20px;
+    color: #333;
+    position: relative;
+    box-shadow: 0 0 20px var(--neon-pink);
+    overflow: hidden;
+}
+
+/* Árbol de corazones */
+.tree-container {
+    position: relative;
+    height: 150px;
+    display: flex;
+    justify-content: center;
+}
+
+.trunk {
+    width: 10px;
+    height: 60px;
+    background: #5d4037;
+    position: absolute;
+    bottom: 0;
+    border-radius: 5px;
+}
+
+.heart {
+    position: absolute;
+    color: #ff4d6d;
+    font-size: 15px;
+    animation: grow 1s ease-out forwards;
+}
+
+@keyframes grow {
+    0% { transform: scale(0); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+/* Ventana de Código inferior */
+.code-window {
+    background: var(--code-bg);
+    width: 350px;
+    border-radius: 10px;
+    padding: 10px;
+    font-size: 0.8rem;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+
+.code-header {
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #2d3139;
+    padding-bottom: 5px;
+    margin-bottom: 10px;
+}
+
+.dots::before {
+    content: "● ● ●";
+    color: #ff5f56;
+    letter-spacing: 2px;
+}
+
+.filename {
+    margin-left: 15px;
+    color: #82aaff;
+}
+
+/* Colores de sintaxis */
+.selector { color: #addb67; }
+.prop { color: #82aaff; }
+.val { color: #ecc48d; }
+.line { color: #3b4252; margin-right: 10px; }
+
+/* Contador */
+#timer {
+    font-weight: bold;
+    color: #ff4d6d;
+    font-size: 0.9rem;
+    margin-top: 10px;
+}
