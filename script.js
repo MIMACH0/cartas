@@ -1,117 +1,45 @@
-:root {
-    --rosa-neon: #ff007f;
-    --rosa-suave: #ffb3c1;
-    --fondo-oscuro: #0a0a0a;
+// CONFIGURACIÓN: Fecha de aniversario
+const fechaMery = new Date('2025-11-11T00:00:00');
+
+function iniciarReloj() {
+    const ahora = new Date();
+    const diferencia = ahora - fechaMery;
+
+    const d = Math.floor(diferencia / (1000 * 60 * 60 * 24));
+    const h = Math.floor((diferencia / (1000 * 60 * 60)) % 24);
+    const m = Math.floor((diferencia / 1000 / 60) % 60);
+    const s = Math.floor((diferencia / 1000) % 60);
+
+    document.getElementById('timer').innerText = 
+        `${d} días, ${h}h ${m}m ${s}s`;
 }
 
-body {
-    margin: 0;
-    height: 100vh;
-    background-color: var(--fondo-oscuro);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-family: 'Quicksand', sans-serif;
-    color: white;
-    overflow: hidden;
+// Dibuja el árbol con corazones en forma de copa
+function animarArbol() {
+    const contenedor = document.getElementById('hearts-container');
+    
+    // Coordenadas relativas para formar una copa de corazón
+    const puntos = [
+        {x: 0, y: -60}, {x: -20, y: -75}, {x: 20, y: -75},
+        {x: -40, y: -85}, {x: 40, y: -85}, {x: 0, y: -95},
+        {x: -25, y: -105}, {x: 25, y: -105}, {x: -55, y: -100},
+        {x: 55, y: -100}, {x: 0, y: -120}, {x: -30, y: -130},
+        {x: 30, y: -130}, {x: -15, y: -140}, {x: 15, y: -140}
+    ];
+
+    puntos.forEach((p, i) => {
+        setTimeout(() => {
+            const h = document.createElement('div');
+            h.classList.add('heart-leaf');
+            h.innerHTML = '❤️';
+            h.style.left = `calc(50% + ${p.x}px)`;
+            h.style.top = `${p.y + 150}px`;
+            contenedor.appendChild(h);
+        }, i * 250); // Aparecen uno tras otro como en el video
+    });
 }
 
-/* Fondo con efecto de luces */
-.background-hearts {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: radial-gradient(circle, #ff007f1a 1px, transparent 1px);
-    background-size: 40px 40px;
-    z-index: -1;
-}
-
-.carta-container {
-    background: rgba(255, 255, 255, 0.95);
-    width: 340px;
-    padding: 30px;
-    border-radius: 20px;
-    box-shadow: 0 0 30px var(--rosa-neon);
-    text-align: center;
-    color: #333;
-    animation: aparecerCarta 1.5s ease-out;
-}
-
-/* Animación del Árbol */
-.tree-canvas {
-    position: relative;
-    height: 160px;
-    margin-bottom: 20px;
-}
-
-.trunk {
-    width: 10px;
-    height: 50px;
-    background: #5d4037;
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    border-radius: 5px;
-}
-
-.heart-leaf {
-    position: absolute;
-    color: #ff4d6d;
-    font-size: 18px;
-    transform: scale(0);
-    animation: brotarCorazon 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
-}
-
-@keyframes brotarCorazon {
-    to { transform: scale(1); }
-}
-
-/* Estilo del Texto */
-.target-name {
-    font-family: 'Dancing Script', cursive;
-    color: #e91e63;
-    font-size: 1.6rem;
-    margin-bottom: 15px;
-}
-
-.text-lines p {
-    font-size: 0.95rem;
-    margin: 5px 0;
-    opacity: 0;
-    animation: aparecerTexto 1s ease-out forwards;
-}
-
-#line1 { animation-delay: 1s; }
-#line2 { animation-delay: 2s; }
-.signature { 
-    font-weight: bold; 
-    color: #ff4d6d; 
-    animation-delay: 3s !important;
-}
-
-.counter-box {
-    margin-top: 25px;
-    background: #fff0f3;
-    padding: 15px;
-    border-radius: 12px;
-    border: 1px dashed #ff4d6d;
-}
-
-#timer {
-    font-weight: bold;
-    color: #e91e63;
-    font-size: 0.9rem;
-    margin-top: 5px;
-}
-
-@keyframes aparecerCarta {
-    from { opacity: 0; transform: translateY(30px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-@keyframes aparecerTexto {
-    to { opacity: 1; }
-}
+// Ejecución
+setInterval(iniciarReloj, 1000);
+animarArbol();
+iniciarReloj();
