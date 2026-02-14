@@ -1,56 +1,55 @@
+:root {
+    --rosa-neon: #ff007f;
+    --rosa-suave: #ffb3c1;
+    --fondo-oscuro: #0a0a0a;
+}
+
 body {
     margin: 0;
     height: 100vh;
+    background-color: var(--fondo-oscuro);
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #ffdae0;
     font-family: 'Quicksand', sans-serif;
+    color: white;
     overflow: hidden;
 }
 
-/* Fondo animado suave */
-body::before {
-    content: "";
-    position: absolute;
-    width: 200%;
-    height: 200%;
-    background: radial-gradient(circle, #ffb3c1 10%, transparent 20%);
-    background-size: 50px 50px;
-    animation: moverFondo 20s linear infinite;
+/* Fondo con efecto de luces */
+.background-hearts {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, #ff007f1a 1px, transparent 1px);
+    background-size: 40px 40px;
     z-index: -1;
-    opacity: 0.5;
 }
 
-@keyframes moverFondo {
-    from { transform: translate(0, 0); }
-    to { transform: translate(-50px, -50px); }
-}
-
-/* La Carta */
-.carta {
-    background: white;
-    width: 90%;
-    max-width: 400px;
-    padding: 40px 20px;
-    border-radius: 25px;
-    box-shadow: 0 15px 35px rgba(255, 77, 109, 0.3);
+.carta-container {
+    background: rgba(255, 255, 255, 0.95);
+    width: 340px;
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 0 30px var(--rosa-neon);
     text-align: center;
-    border: 10px solid #fff5f7;
-    position: relative;
+    color: #333;
+    animation: aparecerCarta 1.5s ease-out;
 }
 
-/* El Árbol */
-.contenedor-arbol {
+/* Animación del Árbol */
+.tree-canvas {
     position: relative;
-    height: 140px;
+    height: 160px;
     margin-bottom: 20px;
 }
 
-.tronco {
-    width: 12px;
+.trunk {
+    width: 10px;
     height: 50px;
-    background: #795548;
+    background: #5d4037;
     position: absolute;
     bottom: 0;
     left: 50%;
@@ -58,48 +57,61 @@ body::before {
     border-radius: 5px;
 }
 
-.corazon-arbol {
+.heart-leaf {
     position: absolute;
     color: #ff4d6d;
-    font-size: 1.2rem;
-    animation: brotar 0.8s ease-out forwards;
-    opacity: 0;
+    font-size: 18px;
+    transform: scale(0);
+    animation: brotarCorazon 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
 }
 
-@keyframes brotar {
-    0% { transform: scale(0) translateY(0); opacity: 0; }
-    100% { transform: scale(1) translateY(-10px); opacity: 1; }
+@keyframes brotarCorazon {
+    to { transform: scale(1); }
 }
 
-/* Textos */
-h1 {
+/* Estilo del Texto */
+.target-name {
     font-family: 'Dancing Script', cursive;
-    color: #d81b60;
-    font-size: 1.8rem;
-    margin: 10px 0;
+    color: #e91e63;
+    font-size: 1.6rem;
+    margin-bottom: 15px;
 }
 
-.frase {
-    font-style: italic;
-    color: #555;
-    margin-bottom: 20px;
+.text-lines p {
+    font-size: 0.95rem;
+    margin: 5px 0;
+    opacity: 0;
+    animation: aparecerTexto 1s ease-out forwards;
 }
 
-.reloj-romantico {
+#line1 { animation-delay: 1s; }
+#line2 { animation-delay: 2s; }
+.signature { 
+    font-weight: bold; 
+    color: #ff4d6d; 
+    animation-delay: 3s !important;
+}
+
+.counter-box {
+    margin-top: 25px;
     background: #fff0f3;
     padding: 15px;
-    border-radius: 15px;
-    border: 1px solid #ffccd5;
+    border-radius: 12px;
+    border: 1px dashed #ff4d6d;
 }
 
-#contador {
-    font-weight: 500;
-    color: #ff4d6d;
-    font-size: 1.1rem;
+#timer {
+    font-weight: bold;
+    color: #e91e63;
+    font-size: 0.9rem;
     margin-top: 5px;
 }
 
-.separador {
-    font-size: 1.5rem;
-    margin: 15px 0;
+@keyframes aparecerCarta {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes aparecerTexto {
+    to { opacity: 1; }
 }
