@@ -1,39 +1,44 @@
+// CONFIGURACIÓN: Fecha de aniversario
 const fechaAniversario = new Date('2025-11-11T00:00:00');
 
-function actualizarContador() {
+function actualizarReloj() {
     const ahora = new Date();
-    const diff = ahora - fechaAniversario;
+    const diferencia = ahora - fechaAniversario;
 
-    const dias = Math.floor(diff / (1000 * 60 * 60 * 24));
-    const horas = Math.floor((diff / (1000 * 60 * 60)) % 24);
-    const minutos = Math.floor((diff / 1000 / 60) % 60);
-    const segundos = Math.floor((diff / 1000) % 60);
+    // Si la fecha es futura (como hoy es Feb 2026, ya pasó)
+    const dias = Math.floor(diferencia / (1000 * 60 * 60 * 24));
+    const horas = Math.floor((diferencia / (1000 * 60 * 60)) % 24);
+    const minutos = Math.floor((diferencia / 1000 / 60) % 60);
+    const segundos = Math.floor((diferencia / 1000) % 60);
 
-    document.getElementById('timer').innerText = 
-        `${dias} dias ${horas} horas ${minutos} minutos ${segundos} segundos`;
+    document.getElementById('contador').innerHTML = 
+        `${dias}d : ${horas}h : ${minutos}m : ${segundos}s`;
 }
 
-// Generar corazones para el árbol
-function crearArbol() {
-    const canopy = document.getElementById('canopy');
-    const posiciones = [
-        {t: -10, l: 0}, {t: -20, l: 15}, {t: -20, l: -15},
-        {t: -40, l: 30}, {t: -40, l: -30}, {t: -40, l: 0},
-        {t: -60, l: 45}, {t: -60, l: -45}, {t: -60, l: 20}, {t: -60, l: -20}
-    ];
+// Función para crear el árbol de corazones
+function construirArbol() {
+    const contenedor = document.getElementById('arbol-corazones');
+    const totalCorazones = 15;
 
-    posiciones.forEach((pos, i) => {
+    for (let i = 0; i < totalCorazones; i++) {
         setTimeout(() => {
-            const h = document.createElement('span');
-            h.classList.add('heart');
-            h.innerHTML = '❤️';
-            h.style.top = pos.t + 'px';
-            h.style.left = `calc(50% + ${pos.l}px)`;
-            canopy.appendChild(h);
-        }, i * 200);
-    });
+            const corazon = document.createElement('span');
+            corazon.classList.add('corazon-arbol');
+            corazon.innerHTML = '❤️';
+            
+            // Posiciones aleatorias para formar la copa del árbol
+            const x = Math.random() * 100 - 50; 
+            const y = Math.random() * -80 - 20; 
+            
+            corazon.style.left = `calc(50% + ${x}px)`;
+            corazon.style.top = `${y + 110}px`;
+            
+            contenedor.appendChild(corazon);
+        }, i * 250); // Aparecen uno por uno
+    }
 }
 
-setInterval(actualizarContador, 1000);
-crearArbol();
-actualizarContador();
+// Iniciar todo
+setInterval(actualizarReloj, 1000);
+construirArbol();
+actualizarReloj();
